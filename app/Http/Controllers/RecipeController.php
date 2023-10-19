@@ -28,7 +28,11 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Recipe::create([
+            'name' => $request['name'],
+        ]);
+
+        return response(null, 200);
     }
 
     /**
