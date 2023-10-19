@@ -28,7 +28,12 @@ class MealPlanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        MealPlan::create([
+            'start_date' => $request['start_date'],
+            'end_date' => $request['end_date'],
+        ]);
+
+        return redirect()->route('meal-plans.index');
     }
 
     /**

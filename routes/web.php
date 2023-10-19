@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\MealController;
+use App\Http\Controllers\MealPlanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecipeController;
 use Illuminate\Foundation\Application;
@@ -31,6 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('recipes', RecipeController::class);
     Route::resource('ingredients', IngredientController::class);
     Route::resource('meals', MealController::class);
+    Route::resource('meal-plans', MealPlanController::class);
 });
 
 require __DIR__.'/auth.php';
