@@ -32,7 +32,7 @@ class IngredientController extends Controller
             'name' => $request['name'],
         ]);
 
-        return response(null, 200);
+        return redirect()->route('ingredients.index');
     }
 
     /**

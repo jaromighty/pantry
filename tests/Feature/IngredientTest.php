@@ -31,7 +31,7 @@ class IngredientTest extends TestCase
             'name' => 'Tater Tots',
         ]);
 
-        $response->assertStatus(200);
+        $response->assertRedirectToRoute('ingredients.index');
 
         $ingredient = Ingredient::find(1);
         $this->assertNotNull($ingredient);
