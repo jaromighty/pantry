@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('meal_plans', function (Blueprint $table) {
             $table->id();
+            $table->date('start_date');
+            $table->date('end_date');
             $table->timestamps();
         });
     }

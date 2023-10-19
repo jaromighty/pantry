@@ -2,10 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Models\MealPlan;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\MealPlan>
+ * @extends Factory<MealPlan>
  */
 class MealPlanFactory extends Factory
 {
@@ -17,7 +19,8 @@ class MealPlanFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'start_date' => Carbon::now(),
+            'end_date' => Carbon::now()->addDays(6),
         ];
     }
 }
