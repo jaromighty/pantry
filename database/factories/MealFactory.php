@@ -2,10 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Enums\MealType;
+use App\Models\Meal;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Meal>
+ * @extends Factory<Meal>
  */
 class MealFactory extends Factory
 {
@@ -17,7 +20,8 @@ class MealFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'date' => Carbon::now()->addDays(2),
+            'type' => MealType::BREAKFAST,
         ];
     }
 }
