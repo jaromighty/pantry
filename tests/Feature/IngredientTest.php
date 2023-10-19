@@ -2,12 +2,12 @@
 
 namespace Tests\Feature;
 
-use App\Models\Recipe;
+use App\Models\Ingredient;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class RecipeTest extends TestCase
+class IngredientTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -25,15 +25,15 @@ class RecipeTest extends TestCase
         ]);
     }
 
-    public function test_a_recipe_can_be_created(): void
+    public function test_an_ingredient_can_be_created(): void
     {
-        $response = $this->post('/recipes', [
-            'name' => 'Tater Tot Casserole',
+        $response = $this->post('/ingredients', [
+            'name' => 'Tater Tots',
         ]);
 
         $response->assertStatus(200);
 
-        $recipe = Recipe::find(1);
-        $this->assertNotNull($recipe);
+        $ingredient = Ingredient::find(1);
+        $this->assertNotNull($ingredient);
     }
 }

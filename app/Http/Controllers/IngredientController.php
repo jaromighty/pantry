@@ -28,7 +28,11 @@ class IngredientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Ingredient::create([
+            'name' => $request['name'],
+        ]);
+
+        return response(null, 200);
     }
 
     /**

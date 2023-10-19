@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecipeController;
 use Illuminate\Foundation\Application;
@@ -27,6 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('recipes', RecipeController::class);
+    Route::resource('ingredients', IngredientController::class);
 });
 
 require __DIR__.'/auth.php';
