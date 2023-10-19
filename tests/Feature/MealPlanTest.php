@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Meal;
 use App\Models\MealPlan;
 use App\Models\User;
 use Carbon\Carbon;
@@ -37,5 +38,14 @@ class MealPlanTest extends TestCase
         $this->assertNotNull($mealPlan);
 
         $redirect = $response->assertRedirect(route('meal-plans.index'));
+    }
+
+    public function test_a_meal_plan_has_meals(): void
+    {
+        MealPlan::factory()->create()->meals()->attach(Meal::factory(4)->create());
+
+        $queriedMealPlan = MealPlan::with('meals')->first();
+        $this->assertNotNull($queriedMealPlan);
+        $this->assertCount(4, $queriedMealPlan->meals);
     }
 }

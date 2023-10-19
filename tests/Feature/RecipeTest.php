@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Ingredient;
 use App\Models\Recipe;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -33,7 +34,16 @@ class RecipeTest extends TestCase
 
         $redirect = $response->assertRedirect(route('recipes.index'));
 
-        $recipe = Recipe::find(1);
+        $recipe = Recipe::first();
         $this->assertNotNull($recipe);
+    }
+
+    public function test_a_recipe_has_ingredients(): void
+    {
+        Recipe::factory()->create()->ingredients()->attach(Ingredient::factory(2)->create());
+
+        $queriedRecipe = Recipe::with('ingredients')->first();
+        $this->assertNotNull($queriedRecipe);
+        $this->assertCount(2, $queriedRecipe->ingredients);
     }
 }
