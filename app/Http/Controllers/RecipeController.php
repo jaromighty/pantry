@@ -12,7 +12,7 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        //
+        return inertia('Recipes/Index');
     }
 
     /**
@@ -32,7 +32,7 @@ class RecipeController extends Controller
             'name' => $request['name'],
         ]);
 
-        return response(null, 200);
+        return redirect()->route('recipes.index');
     }
 
     /**

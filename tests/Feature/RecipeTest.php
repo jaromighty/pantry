@@ -27,11 +27,11 @@ class RecipeTest extends TestCase
 
     public function test_a_recipe_can_be_created(): void
     {
-        $response = $this->post('/recipes', [
+        $response = $this->post(route('recipes.store'), [
             'name' => 'Tater Tot Casserole',
         ]);
 
-        $response->assertStatus(200);
+        $redirect = $response->assertRedirect(route('recipes.index'));
 
         $recipe = Recipe::find(1);
         $this->assertNotNull($recipe);
