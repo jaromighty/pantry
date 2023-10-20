@@ -30,9 +30,14 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
-        Recipe::create([
+        $recipe = Recipe::create([
             'name' => $request['name'],
         ]);
+
+        foreach ($request['ingredients'] as $ingredient) {
+            unset($ingredient['idx']);
+            $recipe->ingredients()->firstOrCreate($ingredient);
+        }
 
         return redirect()->route('recipes.index');
     }
