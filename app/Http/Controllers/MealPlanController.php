@@ -12,7 +12,7 @@ class MealPlanController extends Controller
      */
     public function index()
     {
-        //
+        return inertia('MealPlans/Index');
     }
 
     /**
