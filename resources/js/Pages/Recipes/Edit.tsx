@@ -1,20 +1,20 @@
 import {Head, useForm} from "@inertiajs/react";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
-import {PageProps} from "@/types";
+import {PageProps, Recipe} from "@/types";
 
-export default function RecipeCreate ({auth}: PageProps) {
-  const {data, setData, post} = useForm({
-    name: '',
+export default function RecipeEdit ({ auth, recipe }: PageProps<{ recipe: Recipe }>) {
+  const {data, setData, put} = useForm({
+    name: recipe.name,
   });
 
   const submit = (e) => {
     e.preventDefault();
 
-    post(route('recipes.store'));
+    put(route('recipes.update'));
   }
 
   return <>
-    <Head title="Create new recipe"/>
+    <Head title={`Edit ${recipe.name}`}/>
 
     <Authenticated user={auth.user}>
       <div className="py-4 max-w-7xl mx-auto px-4 sm:px-6 sm:py-8 lg:px-0">
@@ -22,7 +22,7 @@ export default function RecipeCreate ({auth}: PageProps) {
           <div className="space-y-12">
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
               <div>
-                <h2 className="text-base font-semibold leading-7 text-gray-900">Create new recipe</h2>
+                <h2 className="text-base font-semibold leading-7 text-gray-900">Edit recipe</h2>
                 <p className="mt-1 text-sm leading-6 text-gray-600">This is going to be great.</p>
               </div>
 

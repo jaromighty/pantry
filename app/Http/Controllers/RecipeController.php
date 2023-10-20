@@ -52,7 +52,9 @@ class RecipeController extends Controller
      */
     public function edit(Recipe $recipe)
     {
-        //
+        return inertia('Recipes/Edit', [
+            'recipe' => $recipe,
+        ]);
     }
 
     /**
