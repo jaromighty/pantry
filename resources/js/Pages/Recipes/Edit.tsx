@@ -7,7 +7,10 @@ export default function RecipeEdit ({ auth, recipe }: PageProps<{ recipe: Recipe
   const [newIngredient, setNewIngredient] = useState('');
   const {data, setData, put} = useForm({
     name: recipe.name,
-    ingredients: recipe.ingredients,
+    ingredients: recipe.ingredients.map(i => ({
+      idx: i.id,
+      name: i.name,
+    })),
   });
 
   const getRandomId = (min: number): number => {
@@ -15,10 +18,13 @@ export default function RecipeEdit ({ auth, recipe }: PageProps<{ recipe: Recipe
   }
 
   const addIngredient = (): void => {
+    if (newIngredient === '') {
+      return;
+    }
     setData('ingredients', [
       ...data.ingredients,
       {
-        id: getRandomId(data.ingredients.length),
+        idx: getRandomId(data.ingredients.length),
         name: newIngredient
       }
     ]);

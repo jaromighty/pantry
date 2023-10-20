@@ -43,7 +43,7 @@ class RecipeController extends Controller
     public function show(Recipe $recipe)
     {
         return inertia('Recipes/Show', [
-            'recipe' => $recipe,
+            'recipe' => $recipe->load('ingredients'),
         ]);
     }
 
@@ -62,7 +62,16 @@ class RecipeController extends Controller
      */
     public function update(Request $request, Recipe $recipe)
     {
-        return $request;
+        $recipe->update([
+            'name' => $request['name'],
+        ]);
+
+        foreach ($request['ingredients'] as $ingredient) {
+            unset($ingredient['idx']);
+            $recipe->ingredients()->firstOrCreate($ingredient);
+        }
+
+        return redirect()->route('recipes.show', [$recipe]);
     }
 
     /**
