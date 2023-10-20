@@ -1,16 +1,34 @@
 import {Head, useForm} from "@inertiajs/react";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import {PageProps, Recipe} from "@/types";
+import {useState} from "react";
 
 export default function RecipeEdit ({ auth, recipe }: PageProps<{ recipe: Recipe }>) {
+  const [newIngredient, setNewIngredient] = useState('');
   const {data, setData, put} = useForm({
     name: recipe.name,
+    ingredients: recipe.ingredients,
   });
+
+  const getRandomId = (min: number): number => {
+    return min < 1 ? Math.floor(Math.random() + min) : 1;
+  }
+
+  const addIngredient = (): void => {
+    setData('ingredients', [
+      ...data.ingredients,
+      {
+        id: getRandomId(data.ingredients.length),
+        name: newIngredient
+      }
+    ]);
+    setNewIngredient('');
+  }
 
   const submit = (e) => {
     e.preventDefault();
 
-    put(route('recipes.update'));
+    put(route('recipes.update', [recipe]));
   }
 
   return <>
@@ -41,6 +59,46 @@ export default function RecipeEdit ({ auth, recipe }: PageProps<{ recipe: Recipe
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
+                </div>
+
+                <div className="col-span-full">
+                  <label className="block text-sm font-medium leading-6 text-gray-900">
+                    Ingredients
+                  </label>
+                  <ul
+                    role="list"
+                    className="mt-2 divide-y divide-gray-100 overflow-hidden bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl"
+                  >
+                    {data.ingredients.length > 0 ? data.ingredients.map((ingredient) => (
+                      <li key={ingredient.id} className="relative flex justify-between gap-x-6 p-2 hover:bg-gray-50 sm:px-4">
+                        <div className="flex min-w-0 gap-x-4">
+                          <div className="min-w-0 flex-auto">
+                            <p className="text-sm leading-6 text-gray-900">
+                              {ingredient.name}
+                            </p>
+                          </div>
+                        </div>
+                      </li>
+                    )) : null}
+                    <li className="flex bg-white p-2 shadow-xl shadow-indigo-900/5">
+                      <input
+                        type="text"
+                        placeholder="Add an ingredient"
+                        value={newIngredient}
+                        onChange={(e) => {
+                          setNewIngredient(e.target.value)
+                        }}
+                        className="flex-auto rounded-md bg-transparent pr-2.5 pl-1 py-1 text-base text-slate-900 border-none sm:text-sm placeholder:text-slate-400 focus:outline-none focus:ring-transparent"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => addIngredient()}
+                        className="rounded-md bg-indigo-600 px-4 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      >
+                        Add
+                      </button>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>

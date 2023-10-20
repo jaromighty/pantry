@@ -53,7 +53,7 @@ class RecipeController extends Controller
     public function edit(Recipe $recipe)
     {
         return inertia('Recipes/Edit', [
-            'recipe' => $recipe,
+            'recipe' => $recipe->load('ingredients'),
         ]);
     }
 
@@ -62,7 +62,7 @@ class RecipeController extends Controller
      */
     public function update(Request $request, Recipe $recipe)
     {
-        //
+        return $request;
     }
 
     /**
