@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\RecipeCountLowException;
 use App\Models\MealPlan;
+use App\Services\MealPlanService;
 use Illuminate\Http\Request;
 
 class MealPlanController extends Controller
 {
+    protected $mealPlanService;
+
+    public function __construct(MealPlanService $mealPlanService)
+    {
+        $this->mealPlanService = $mealPlanService;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -20,7 +29,11 @@ class MealPlanController extends Controller
      */
     public function create()
     {
-        //
+        try {
+            $plan = $this->mealPlanService->generate();
+        } catch (RecipeCountLowException $exception)  {
+            return back()->withErrors(['message' => $exception->getMessage()])->withInput();
+        }
     }
 
     /**
