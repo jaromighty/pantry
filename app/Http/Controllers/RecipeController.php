@@ -32,7 +32,7 @@ class RecipeController extends Controller
     {
         $recipe = Recipe::create([
             'name' => $request['name'],
-            'type' => $request['type'],
+            'type' => $request['type']['value'],
         ]);
 
         foreach ($request['ingredients'] as $ingredient) {
@@ -70,6 +70,7 @@ class RecipeController extends Controller
     {
         $recipe->update([
             'name' => $request['name'],
+            'type' => $request['type']['value'],
         ]);
 
         foreach ($request['ingredients'] as $ingredient) {

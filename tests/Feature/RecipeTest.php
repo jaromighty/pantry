@@ -35,7 +35,9 @@ class RecipeTest extends TestCase
                 ['id' => 1, 'name' => 'potatoes'],
                 ['id' => 2, 'name' => 'cheese']
             ],
-            'type' => RecipeType::DINNER->value,
+            'type' => [
+                'value' =>  RecipeType::DINNER->value
+            ],
         ]);
 
         $redirect = $response->assertRedirect(route('recipes.index'));

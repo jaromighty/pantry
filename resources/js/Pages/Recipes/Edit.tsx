@@ -23,9 +23,9 @@ export default function RecipeEdit ({ auth, recipe }: PageProps<{ recipe: Recipe
   const [newIngredient, setNewIngredient] = useState('');
   const {data, setData, put} = useForm({
     name: recipe.name,
+    type: types.find(type => type.value === recipe.type),
     ingredients: recipe.ingredients.map(i => ({
       idx: i.id,
-      type: types.find(type => type.value === recipe.type),
       name: i.name,
     })),
   });
