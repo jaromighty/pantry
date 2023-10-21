@@ -30,6 +30,10 @@ class RecipeTest extends TestCase
     {
         $response = $this->post(route('recipes.store'), [
             'name' => 'Tater Tot Casserole',
+            'ingredients' => [
+                ['id' => 1, 'name' => 'potatoes'],
+                ['id' => 2, 'name' => 'cheese']
+            ]
         ]);
 
         $redirect = $response->assertRedirect(route('recipes.index'));
