@@ -32,6 +32,7 @@ class RecipeController extends Controller
     {
         $recipe = Recipe::create([
             'name' => $request['name'],
+            'type' => $request['type'],
         ]);
 
         foreach ($request['ingredients'] as $ingredient) {

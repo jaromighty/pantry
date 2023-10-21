@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\RecipeType;
 use App\Models\Ingredient;
 use App\Models\Recipe;
 use App\Models\User;
@@ -33,7 +34,8 @@ class RecipeTest extends TestCase
             'ingredients' => [
                 ['id' => 1, 'name' => 'potatoes'],
                 ['id' => 2, 'name' => 'cheese']
-            ]
+            ],
+            'type' => RecipeType::DINNER->value,
         ]);
 
         $redirect = $response->assertRedirect(route('recipes.index'));

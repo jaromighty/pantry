@@ -12,6 +12,7 @@ class Recipe extends Model
 
     protected $fillable = [
         'name',
+        'type',
     ];
 
     public function ingredients(): BelongsToMany
@@ -21,6 +22,6 @@ class Recipe extends Model
 
     public function meals(): BelongsToMany
     {
-        $this->belongsToMany(Meal::class);
+        return $this->belongsToMany(Meal::class);
     }
 }
