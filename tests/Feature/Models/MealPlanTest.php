@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Feature\Models;
 
 use App\Models\Meal;
 use App\Models\MealPlan;

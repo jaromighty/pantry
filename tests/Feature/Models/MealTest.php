@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Feature\Models;
 
 use App\Enums\MealType;
 use App\Models\Meal;
