@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Exceptions\RecipeCountLowException;
 use App\Models\MealPlan;
 use App\Services\MealPlanService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Inertia\Response;
 
 class MealPlanController extends Controller
 {
-    protected $mealPlanService;
+    protected MealPlanService $mealPlanService;
 
     public function __construct(MealPlanService $mealPlanService)
     {
@@ -27,10 +29,13 @@ class MealPlanController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): Response|RedirectResponse
     {
         try {
             $plan = $this->mealPlanService->generate();
+            return inertia('MealPlans/Create', [
+                'plan' => $plan->toJson(),
+            ]);
         } catch (RecipeCountLowException $exception)  {
             return back()->withErrors(['message' => $exception->getMessage()])->withInput();
         }

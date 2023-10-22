@@ -36,29 +36,20 @@ class MealPlanService
                 'date' => Carbon::parse($mealPlan['start_date'])->addDays($i),
                 'meals' => collect(),
             ]);
-            $meals = [
-                collect([
-                    'type' => MealType::BREAKFAST->value,
-                    'recipes' => collect(),
-                ]),
-                collect([
-                    'type' => MealType::LUNCH->value,
-                    'recipes' => collect(),
-                ]),
-                collect([
-                    'type' => $i < 6 ? MealType::DINNER->value : MealType::DESSERT->value,
-                    'recipes' => collect(),
-                ]),
-            ];
-            $meals[0]['recipes']->push($breakfastRecipes[$i]);
-            $meals[1]['recipes']->push($lunchRecipes[$i]);
-            if ($i < 6) {
-                $meals[2]['recipes']->push($dinnerRecipes[$i]);
-            } else {
-                $meals[2]['recipes']->push($dessertRecipe);
-            }
+            $mealOne = collect([
+                'type' => MealType::BREAKFAST->value,
+                'recipes' => collect([$breakfastRecipes[$i]]),
+            ]);
+            $mealTwo = collect([
+                'type' => MealType::LUNCH->value,
+                'recipes' => collect([$lunchRecipes[$i]]),
+            ]);
+            $mealThree = collect([
+                'type' => $i < 6 ? MealType::DINNER->value : MealType::DESSERT->value,
+                'recipes' => collect($i < 6 ? [$dinnerRecipes[$i]] : $dessertRecipe),
+            ]);
 
-            $day['meals']->push($meals);
+            $day['meals']->push($mealOne, $mealTwo, $mealThree);
             $mealPlan['days']->push($day);
         }
 
