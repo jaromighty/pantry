@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\RecipeCountLowException;
+use App\Jobs\StoreMealPlan;
 use App\Models\MealPlan;
 use App\Services\MealPlanService;
 use Illuminate\Http\RedirectResponse;
@@ -23,7 +24,9 @@ class MealPlanController extends Controller
      */
     public function index()
     {
-        return inertia('MealPlans/Index');
+        return inertia('MealPlans/Index', [
+            'mealPlans' => MealPlan::orderBy('start_date', 'desc')->get(),
+        ]);
     }
 
     /**
@@ -46,10 +49,7 @@ class MealPlanController extends Controller
      */
     public function store(Request $request)
     {
-        MealPlan::create([
-            'start_date' => $request['start_date'],
-            'end_date' => $request['end_date'],
-        ]);
+        StoreMealPlan::dispatch($request->all());
 
         return redirect()->route('meal-plans.index');
     }

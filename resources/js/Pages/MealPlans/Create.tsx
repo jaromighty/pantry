@@ -1,5 +1,5 @@
 import {PageProps} from "@/types";
-import {Head} from "@inertiajs/react";
+import {Head, router} from "@inertiajs/react";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import {useState} from "react";
 import dayjs from "dayjs";
@@ -8,6 +8,10 @@ import {MealType} from "@/enums";
 
 export default function MealPlanCreate ({ auth, plan }: PageProps<{ plan: string }>) {
   const [mealPlan] = useState(JSON.parse(plan));
+
+  const submit = () => {
+    router.post(route('meal-plans.store'), mealPlan);
+  }
 
   return <>
     <Head title="Create A Meal Plan"/>
@@ -31,6 +35,7 @@ export default function MealPlanCreate ({ auth, plan }: PageProps<{ plan: string
             </h1>
             <div className="ml-4 flex-shrink-0">
               <button
+                onClick={submit}
                 className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Save meal plan
