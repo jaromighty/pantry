@@ -7,6 +7,7 @@ use App\Exceptions\RecipeCountLowException;
 use App\Jobs\StoreMealPlan;
 use App\Models\MealPlan;
 use App\Services\MealPlanService;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Response;
@@ -26,7 +27,9 @@ class MealPlanController extends Controller
     public function index()
     {
         return inertia('MealPlans/Index', [
-            'mealPlans' => MealPlan::orderBy('start_date', 'desc')->get(),
+            'mealPlans' => MealPlan::orderBy('start_date', 'desc')->get()->groupBy(function($val) {
+                return Carbon::parse($val->start_date)->format('F Y');
+            }),
         ]);
     }
 
