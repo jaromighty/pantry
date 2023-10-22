@@ -31,27 +31,18 @@ class MealPlanServiceTest extends TestCase
         $breakfastRecipes = Recipe::factory(7)->create([
             'type' => RecipeType::BREAKFAST->value,
         ]);
-        foreach ($breakfastRecipes as $recipe) {
-            $recipe->ingredients()->attach(Ingredient::factory(rand(4,12))->create());
-        }
 
         $lunchRecipes = Recipe::factory(7)->create([
             'type' => RecipeType::LUNCH->value,
         ]);
-        foreach ($lunchRecipes as $recipe) {
-            $recipe->ingredients()->attach(Ingredient::factory(rand(4,12))->create());
-        }
 
         $dinnerRecipes = Recipe::factory(6)->create([
             'type' => RecipeType::DINNER->value,
         ]);
-        foreach ($dinnerRecipes as $recipe) {
-            $recipe->ingredients()->attach(Ingredient::factory(rand(4,12))->create());
-        }
 
         Recipe::factory()->create([
             'type' => RecipeType::DESSERT->value,
-        ])->ingredients()->attach(Ingredient::factory(rand(4,12))->create());
+        ]);
 
         $mealPlan = $this->mealPlanService->generate();
 
