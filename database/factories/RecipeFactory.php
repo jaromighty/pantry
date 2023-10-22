@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\RecipeType;
 use App\Models\Recipe;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,6 +20,7 @@ class RecipeFactory extends Factory
     {
         return [
             'name' => $this->faker->word(),
+            'type' => RecipeType::DINNER->value,
         ];
     }
 }

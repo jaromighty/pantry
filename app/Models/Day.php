@@ -10,6 +10,8 @@ class Day extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'date',
         'meal_plan_id',

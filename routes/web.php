@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DayController;
 use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\MealController;
 use App\Http\Controllers\MealPlanController;
@@ -32,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('recipes', RecipeController::class);
     Route::resource('ingredients', IngredientController::class);
     Route::resource('meals', MealController::class);
+    Route::resource('days', DayController::class);
     Route::resource('meal-plans', MealPlanController::class);
 });
 
