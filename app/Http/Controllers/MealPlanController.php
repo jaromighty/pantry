@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\MealPlanAlreadyExistsException;
 use App\Exceptions\RecipeCountLowException;
 use App\Jobs\StoreMealPlan;
 use App\Models\MealPlan;
@@ -47,11 +48,14 @@ class MealPlanController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        StoreMealPlan::dispatch($request->all());
-
-        return redirect()->route('meal-plans.index');
+        try {
+            StoreMealPlan::dispatch($request->all());
+            return redirect()->route('meal-plans.index');
+        } catch (MealPlanAlreadyExistsException $exception) {
+            return back()->withErrors(['message' => $exception->getMessage()]);
+        }
     }
 
     /**

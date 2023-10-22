@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Exceptions\MealPlanAlreadyExistsException;
 use App\Models\Day;
 use App\Models\Meal;
 use App\Models\MealPlan;
@@ -29,9 +30,14 @@ class StoreMealPlan implements ShouldQueue
 
     /**
      * Execute the job.
+     * @throws MealPlanAlreadyExistsException
      */
     public function handle(Request $generatedMealPlan): void
     {
+        if (count(MealPlan::where('end_date', '>=', Carbon::parse($generatedMealPlan['start_date']))->get()) > 0) {
+            throw new MealPlanAlreadyExistsException('There is already a meal plan that includes dates in this meal plan');
+        }
+
         $mealPlan = MealPlan::create([
             'start_date' => Carbon::parse($generatedMealPlan['start_date']),
             'end_date' => Carbon::parse($generatedMealPlan['end_date']),
