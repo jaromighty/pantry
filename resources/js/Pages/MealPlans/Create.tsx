@@ -5,6 +5,7 @@ import {useState} from "react";
 import dayjs from "dayjs";
 import {classNames} from "@/Utils/classNames";
 import {MealType} from "@/enums";
+import PrimaryButton from "@/Components/PrimaryButton";
 
 export default function MealPlanCreate ({ auth, plan }: PageProps<{ plan: string }>) {
   const [mealPlan] = useState(JSON.parse(plan));
@@ -16,7 +17,7 @@ export default function MealPlanCreate ({ auth, plan }: PageProps<{ plan: string
       <div className="py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-0">
 
         <div className="overflow-hidden rounded-lg bg-white shadow divide-y divide-gray-200">
-          <header className="flex flex-none items-center justify-between px-6 py-4">
+          <header className="flex flex-none items-center justify-between pl-6 pr-4 py-3">
             <h1 className="flex items-center text-base font-semibold leading-6 text-gray-900">
               Meal Plan{' '}
               <span className="flex items-center gap-x-1 ml-2.5 text-gray-500">
@@ -29,6 +30,13 @@ export default function MealPlanCreate ({ auth, plan }: PageProps<{ plan: string
                 </time>
               </span>
             </h1>
+            <div className="ml-4 flex-shrink-0">
+              <button
+                className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Save meal plan
+              </button>
+            </div>
           </header>
           <div className="isolate flex flex-auto flex-col overflow-auto bg-white">
             <div style={{ width: '165%' }} className="flex max-w-full flex-none flex-col sm:max-w-none md:max-w-full">
