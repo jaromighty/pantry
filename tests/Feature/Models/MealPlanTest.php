@@ -2,6 +2,7 @@
 
 namespace Feature\Models;
 
+use App\Models\Day;
 use App\Models\Meal;
 use App\Models\MealPlan;
 use App\Models\User;
@@ -40,12 +41,15 @@ class MealPlanTest extends TestCase
         $redirect = $response->assertRedirect(route('meal-plans.index'));
     }
 
-    public function test_a_meal_plan_has_meals(): void
+    public function test_a_meal_plan_has_days(): void
     {
-        MealPlan::factory()->create()->meals()->attach(Meal::factory(4)->create());
+        $mealPlan = MealPlan::factory()->create();
+        $days = Day::factory(4)->create([
+            'meal_plan_id' => $mealPlan->id,
+        ]);
 
-        $queriedMealPlan = MealPlan::with('meals')->first();
+        $queriedMealPlan = MealPlan::with('days')->first();
         $this->assertNotNull($queriedMealPlan);
-        $this->assertCount(4, $queriedMealPlan->meals);
+        $this->assertCount(4, $queriedMealPlan->days);
     }
 }
