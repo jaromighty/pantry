@@ -5,7 +5,6 @@ import {useState} from "react";
 import dayjs from "dayjs";
 import {classNames} from "@/Utils/classNames";
 import {MealType} from "@/enums";
-import PrimaryButton from "@/Components/PrimaryButton";
 
 export default function MealPlanCreate ({ auth, plan }: PageProps<{ plan: string }>) {
   const [mealPlan] = useState(JSON.parse(plan));
