@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class MealPlan extends Model
 {
@@ -15,8 +15,8 @@ class MealPlan extends Model
         'end_date',
     ];
 
-    public function meals(): BelongsToMany
+    public function days(): HasMany
     {
-        return $this->belongsToMany(Meal::class);
+        return $this->hasMany(Day::class);
     }
 }
