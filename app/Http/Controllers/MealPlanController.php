@@ -27,9 +27,7 @@ class MealPlanController extends Controller
     public function index()
     {
         return inertia('MealPlans/Index', [
-            'mealPlans' => MealPlan::orderBy('start_date', 'desc')->get()->groupBy(function($val) {
-                return Carbon::parse($val->start_date)->format('F Y');
-            }),
+            'mealPlans' => MealPlan::orderBy('start_date', 'desc')->get(),
         ]);
     }
 
