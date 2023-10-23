@@ -53,6 +53,7 @@ class StoreMealPlan implements ShouldQueue
                 $meal = Meal::create([
                     'type' => $generatedMeal['type'],
                 ]);
+                $day->meals()->save($meal);
 
                 foreach ($generatedMeal['recipes'] as $recipe) {
                     $meal->recipes()->save(
