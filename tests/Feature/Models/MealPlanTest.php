@@ -2,9 +2,12 @@
 
 namespace Feature\Models;
 
+use App\Enums\MealType;
+use App\Enums\RecipeType;
 use App\Models\Day;
 use App\Models\Meal;
 use App\Models\MealPlan;
+use App\Models\Recipe;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -33,6 +36,169 @@ class MealPlanTest extends TestCase
         $response = $this->post(route('meal-plans.store'), [
             'start_date' => Carbon::now(),
             'end_date' => Carbon::now()->addDays(6),
+            'days' => [
+                [
+                    'date' => Carbon::now(),
+                    'meals' => [
+                        [
+                            'type' => MealType::BREAKFAST->value,
+                            'recipes' => [
+                                Recipe::factory()->create(['type' => RecipeType::BREAKFAST->value]),
+                            ],
+                        ],
+                        [
+                            'type' => MealType::LUNCH->value,
+                            'recipes' => [
+                                Recipe::factory()->create(['type' => RecipeType::LUNCH->value]),
+                            ],
+                        ],
+                        [
+                            'type' => MealType::DINNER->value,
+                            'recipes' => [
+                                Recipe::factory()->create(['type' => RecipeType::DINNER->value]),
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'date' => Carbon::now()->addDays(1),
+                    'meals' => [
+                        [
+                            'type' => MealType::BREAKFAST->value,
+                            'recipes' => [
+                                Recipe::factory()->create(['type' => RecipeType::BREAKFAST->value]),
+                            ],
+                        ],
+                        [
+                            'type' => MealType::LUNCH->value,
+                            'recipes' => [
+                                Recipe::factory()->create(['type' => RecipeType::LUNCH->value]),
+                            ],
+                        ],
+                        [
+                            'type' => MealType::DINNER->value,
+                            'recipes' => [
+                                Recipe::factory()->create(['type' => RecipeType::DINNER->value]),
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'date' => Carbon::now()->addDays(2),
+                    'meals' => [
+                        [
+                            'type' => MealType::BREAKFAST->value,
+                            'recipes' => [
+                                Recipe::factory()->create(['type' => RecipeType::BREAKFAST->value]),
+                            ],
+                        ],
+                        [
+                            'type' => MealType::LUNCH->value,
+                            'recipes' => [
+                                Recipe::factory()->create(['type' => RecipeType::LUNCH->value]),
+                            ],
+                        ],
+                        [
+                            'type' => MealType::DINNER->value,
+                            'recipes' => [
+                                Recipe::factory()->create(['type' => RecipeType::DINNER->value]),
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'date' => Carbon::now()->addDays(3),
+                    'meals' => [
+                        [
+                            'type' => MealType::BREAKFAST->value,
+                            'recipes' => [
+                                Recipe::factory()->create(['type' => RecipeType::BREAKFAST->value]),
+                            ],
+                        ],
+                        [
+                            'type' => MealType::LUNCH->value,
+                            'recipes' => [
+                                Recipe::factory()->create(['type' => RecipeType::LUNCH->value]),
+                            ],
+                        ],
+                        [
+                            'type' => MealType::DINNER->value,
+                            'recipes' => [
+                                Recipe::factory()->create(['type' => RecipeType::DINNER->value]),
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'date' => Carbon::now()->addDays(4),
+                    'meals' => [
+                        [
+                            'type' => MealType::BREAKFAST->value,
+                            'recipes' => [
+                                Recipe::factory()->create(['type' => RecipeType::BREAKFAST->value]),
+                            ],
+                        ],
+                        [
+                            'type' => MealType::LUNCH->value,
+                            'recipes' => [
+                                Recipe::factory()->create(['type' => RecipeType::LUNCH->value]),
+                            ],
+                        ],
+                        [
+                            'type' => MealType::DINNER->value,
+                            'recipes' => [
+                                Recipe::factory()->create(['type' => RecipeType::DINNER->value]),
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'date' => Carbon::now()->addDays(5),
+                    'meals' => [
+                        [
+                            'type' => MealType::BREAKFAST->value,
+                            'recipes' => [
+                                Recipe::factory()->create(['type' => RecipeType::BREAKFAST->value]),
+                            ],
+                        ],
+                        [
+                            'type' => MealType::LUNCH->value,
+                            'recipes' => [
+                                Recipe::factory()->create(['type' => RecipeType::LUNCH->value]),
+                            ],
+                        ],
+                        [
+                            'type' => MealType::DINNER->value,
+                            'recipes' => [
+                                Recipe::factory()->create(['type' => RecipeType::DINNER->value]),
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'date' => Carbon::now()->addDays(6),
+                    'meals' => [
+                        [
+                            'type' => MealType::BREAKFAST->value,
+                            'recipes' => [
+                                Recipe::factory()->create(['type' => RecipeType::BREAKFAST->value]),
+                            ],
+                        ],
+                        [
+                            'type' => MealType::LUNCH->value,
+                            'recipes' => [
+                                Recipe::factory()->create(['type' => RecipeType::LUNCH->value]),
+                            ],
+                        ],
+                        [
+                            'type' => MealType::DINNER->value,
+                            'recipes' => [
+                                Recipe::factory()->create(['type' => RecipeType::DINNER->value]),
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ]);
 
         $mealPlan = MealPlan::find(1);

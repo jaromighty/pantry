@@ -28,12 +28,7 @@ class MealController extends Controller
      */
     public function store(Request $request)
     {
-        Meal::create([
-            'date' => $request['date'],
-            'type' => $request['type'],
-        ]);
-
-        return redirect()->route('meals.index');
+        //
     }
 
     /**

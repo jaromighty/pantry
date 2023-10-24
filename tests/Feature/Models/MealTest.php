@@ -28,19 +28,6 @@ class MealTest extends TestCase
         ]);
     }
 
-    public function test_a_meal_can_be_created(): void
-    {
-        $response = $this->post(route('meals.store'), [
-            'date' => Carbon::now()->addDays(1),
-            'type' => MealType::DINNER->value,
-        ]);
-
-        $meal = Meal::first();
-        $this->assertNotNull($meal);
-
-        $redirect = $response->assertRedirect(route('meals.index'));
-    }
-
     public function test_a_meal_has_recipes(): void
     {
         Meal::factory()->create()->recipes()->attach(Recipe::factory(2)->create());

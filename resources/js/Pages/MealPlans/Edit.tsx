@@ -1,20 +1,19 @@
 import {PageProps} from "@/types";
-import {Head} from "@inertiajs/react";
+import {Head, useForm} from "@inertiajs/react";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import dayjs from "dayjs";
 import {classNames} from "@/Utils/classNames";
 import {MealType} from "@/enums";
-import {Menu, Transition} from "@headlessui/react";
-import {Fragment} from "react";
-import {ChevronDownIcon} from "@heroicons/react/24/solid";
-
-const items = [
-  { name: 'Save and schedule', href: '#' },
-  { name: 'Save and publish', href: '#' },
-  { name: 'Export PDF', href: '#' },
-]
 
 export default function MealPlanEdit ({ auth, mealPlan }: PageProps<{ mealPlan: any }>) {
+  const {post} = useForm({
+    meal_plan_id: mealPlan.id,
+  });
+
+  const submit = () => {
+    post(route('shopping-lists.generate'));
+  }
+
   return <>
     <Head title="Edit Meal Plan"/>
 
@@ -36,7 +35,7 @@ export default function MealPlanEdit ({ auth, mealPlan }: PageProps<{ mealPlan: 
             </h1>
             <div className="ml-4 flex-shrink-0">
               <button
-                // onClick={submit}
+                onClick={submit}
                 className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Generate shopping list

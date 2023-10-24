@@ -19,8 +19,8 @@ class MealPlanFactory extends Factory
     public function definition(): array
     {
         return [
-            'start_date' => Carbon::now(),
-            'end_date' => Carbon::now()->addDays(6),
+            'start_date' => Carbon::now()->next('Monday'),
+            'end_date' => Carbon::now()->next('Monday')->addDays(6),
         ];
     }
 }

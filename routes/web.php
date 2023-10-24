@@ -6,6 +6,7 @@ use App\Http\Controllers\MealController;
 use App\Http\Controllers\MealPlanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\ShoppingListController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -35,6 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('meals', MealController::class);
     Route::resource('days', DayController::class);
     Route::resource('meal-plans', MealPlanController::class);
+    Route::post('shopping-lists/generate', [ShoppingListController::class, 'generate'])->name('shopping-lists.generate');
+    Route::get('shopping-lists/{shoppingList}', [ShoppingListController::class, 'show'])->name('shopping-lists.show');
 });
 
 require __DIR__.'/auth.php';

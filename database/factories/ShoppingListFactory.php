@@ -2,15 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Enums\MealType;
-use App\Models\Meal;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Meal>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ShoppingList>
  */
-class MealFactory extends Factory
+class ShoppingListFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,8 +17,7 @@ class MealFactory extends Factory
     public function definition(): array
     {
         return [
-            'type' => MealType::BREAKFAST,
-            'day_id' => 1,
+            //
         ];
     }
 }
