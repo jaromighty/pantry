@@ -9,6 +9,11 @@ export interface Recipe {
   ingredients: Ingredient[];
 }
 
+export interface ShoppingList {
+  id: number;
+  ingredients: Ingredient[];
+}
+
 export interface User {
     id: number;
     name: string;

@@ -18,6 +18,9 @@ class ShoppingList extends Model
 
     public function ingredients(): BelongsToMany
     {
-        return $this->belongsToMany(Ingredient::class)->withPivot('quantity');
+        return $this->belongsToMany(Ingredient::class)
+            ->withPivot('quantity', 'marked')
+            ->orderByPivot('marked')
+            ->orderBy('name');
     }
 }

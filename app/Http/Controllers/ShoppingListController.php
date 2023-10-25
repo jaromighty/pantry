@@ -30,4 +30,13 @@ class ShoppingListController extends Controller
             'list' => $shoppingList->load('ingredients'),
         ]);
     }
+
+    public function updateShoppingListIngredient(Request $request, ShoppingList $shoppingList): RedirectResponse
+    {
+        $shoppingList->ingredients()->updateExistingPivot($request['ingredientId'], [
+            'marked' => $request['action'],
+        ]);
+
+        return back();
+    }
 }
