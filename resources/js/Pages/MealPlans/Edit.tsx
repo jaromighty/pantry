@@ -1,11 +1,11 @@
 import {PageProps} from "@/types";
-import {Head, useForm} from "@inertiajs/react";
+import {Head, Link, useForm} from "@inertiajs/react";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import dayjs from "dayjs";
 import {classNames} from "@/Utils/classNames";
 import {MealType} from "@/enums";
 
-export default function MealPlanEdit ({ auth, mealPlan }: PageProps<{ mealPlan: any }>) {
+export default function MealPlanEdit ({ auth, hasShoppingList, mealPlan }: PageProps<{ hasShoppingList:boolean, mealPlan: any }>) {
   const {post} = useForm({
     meal_plan_id: mealPlan.id,
   });
@@ -34,12 +34,21 @@ export default function MealPlanEdit ({ auth, mealPlan }: PageProps<{ mealPlan: 
               </span>
             </h1>
             <div className="ml-4 flex-shrink-0">
-              <button
-                onClick={submit}
-                className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Generate shopping list
-              </button>
+              {hasShoppingList ? (
+                <Link
+                  href={route('shopping-lists.show', [mealPlan.shopping_list.id])}
+                  className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  View shopping list
+                </Link>
+                ) : (
+                <button
+                  onClick={submit}
+                  className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  Generate shopping list
+                </button>
+              )}
             </div>
           </header>
           <div className="isolate flex flex-auto flex-col overflow-auto bg-white">

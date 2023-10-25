@@ -31,6 +31,7 @@ export default function ShoppingListShow ({ auth, list }: PageProps<{ list: Shop
                   <input
                     type="checkbox"
                     checked={ingredient.pivot.marked}
+                    onChange={() => {}}
                     className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                   />
                   <label className="flex-1 font-medium text-gray-900">

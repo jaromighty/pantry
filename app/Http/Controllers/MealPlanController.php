@@ -73,7 +73,8 @@ class MealPlanController extends Controller
     public function edit(MealPlan $mealPlan)
     {
         return inertia('MealPlans/Edit', [
-            'mealPlan' => $mealPlan->load('days.meals.recipes'),
+            'mealPlan' => $mealPlan->load(['days.meals.recipes', 'shoppingList']),
+            'hasShoppingList' => !empty($mealPlan->shoppingList),
         ]);
     }
 
