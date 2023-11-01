@@ -1,10 +1,9 @@
-import {PageProps} from "@/types";
+import {Day, Meal, PageProps} from "@/types";
 import {Head, router} from "@inertiajs/react";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import {useState} from "react";
 import dayjs from "dayjs";
-import {classNames} from "@/Utils/classNames";
-import {MealType} from "@/enums";
+import MealCard from "@/Components/Cards/MealCard";
 
 export default function MealPlanCreate ({ auth, plan }: PageProps<{ plan: string }>) {
   const [mealPlan] = useState(JSON.parse(plan));
@@ -46,7 +45,7 @@ export default function MealPlanCreate ({ auth, plan }: PageProps<{ plan: string
             <div style={{ width: '165%' }} className="flex max-w-full flex-none flex-col sm:max-w-none md:max-w-full">
               <div className="bg-white shadow ring-1 ring-black ring-opacity-5">
                 <div className="hidden grid-cols-7 divide-x divide-gray-100 text-sm leading-6 text-gray-500 sm:grid">
-                  {mealPlan.days.map((day) => (
+                  {mealPlan.days.map((day: Day) => (
                     <div className="flex flex-col divide-y divide-gray-100">
                       <div className="flex items-center justify-center py-3">
                         <span>
@@ -57,34 +56,8 @@ export default function MealPlanCreate ({ auth, plan }: PageProps<{ plan: string
                         </span>
                       </div>
                       <ol className="space-y-2 p-2">
-                        {day.meals.map((meal) => (
-                          <li>
-                            <div className={classNames(
-                              'group flex flex-col overflow-y-auto rounded-md p-2 text-xs leading-5',
-                              meal.type === MealType.BREAKFAST ? 'bg-orange-50 hover:bg-orange-100' : '',
-                              meal.type === MealType.LUNCH ? 'bg-blue-50 hover:bg-blue-100' : '',
-                              meal.type === MealType.DINNER ? 'bg-pink-50 hover:bg-pink-100' : '',
-                              meal.type === MealType.DESSERT ? 'bg-red-50 hover:bg-red-100' : ''
-                            )}>
-                              <p className={classNames(
-                                'order-1 font-semibold text-blue-700',
-                                meal.type === MealType.BREAKFAST ? 'text-orange-700' : '',
-                                meal.type === MealType.LUNCH ? 'text-blue-700' : '',
-                                meal.type === MealType.DINNER ? 'text-pink-700' : '',
-                                meal.type === MealType.DESSERT ? 'text-red-700' : ''
-                              )}>
-                                {meal.recipes[0].name}
-                              </p>
-                              <p className={classNames(
-                                meal.type === MealType.BREAKFAST ? 'text-orange-500 group-hover:text-orange-700' : '',
-                                meal.type === MealType.LUNCH ? 'text-blue-500 group-hover:text-blue-700' : '',
-                                meal.type === MealType.DINNER ? 'text-pink-500 group-hover:text-pink-700' : '',
-                                meal.type === MealType.DESSERT ? 'text-red-500 group-hover:text-red-700' : ''
-                              )}>
-                                {meal.type.charAt(0).toUpperCase() + meal.type.slice(1)}
-                              </p>
-                            </div>
-                          </li>
+                        {day.meals.map((meal: Meal, mealIdx: number) => (
+                          <MealCard key={mealIdx} meal={meal}/>
                         ))}
                       </ol>
                     </div>
@@ -93,7 +66,6 @@ export default function MealPlanCreate ({ auth, plan }: PageProps<{ plan: string
               </div>
             </div>
           </div>
-
         </div>
 
       </div>

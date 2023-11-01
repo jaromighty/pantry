@@ -1,3 +1,5 @@
+import {MealType} from "@/enums";
+
 export interface Ingredient {
   id: number;
   name: string;
@@ -9,9 +11,30 @@ export interface Recipe {
   ingredients: Ingredient[];
 }
 
+export interface Meal {
+  id: number;
+  day_id: number;
+  type: MealType;
+  recipes: Recipe[];
+}
+
+export interface MealPlan {
+  id: number;
+  start_date: string;
+  end_date: string;
+  shopping_list: ShoppingList;
+  days: Day[];
+}
+
 export interface ShoppingList {
   id: number;
   ingredients: Ingredient[];
+}
+
+export interface Day {
+  id: number;
+  date: string;
+  meals: Meal[];
 }
 
 export interface User {
