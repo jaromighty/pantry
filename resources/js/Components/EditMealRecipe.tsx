@@ -18,13 +18,24 @@ export default function EditMealRecipe({ mealPlanId, onClose, recipe }: { mealPl
     });
   }
 
+  const updateMealPlan = (): void => {
+    router.put(route('meal-plans.update', [mealPlanId]), {
+      touch: true,
+    }, {
+      preserveState: true,
+    })
+  }
+
   const submit = () => {
     router.put(route('meals.update', [recipe.pivot.meal_id]), {
       old_recipe_id: recipe.id,
       new_recipe_id: selectedRecipe.id,
     }, {
       preserveState: true,
-      onSuccess: onClose,
+      onSuccess: () => {
+        onClose();
+        updateMealPlan();
+      },
     })
   }
 

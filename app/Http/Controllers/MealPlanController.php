@@ -86,7 +86,11 @@ class MealPlanController extends Controller
      */
     public function update(Request $request, MealPlan $mealPlan)
     {
-        //
+        if ($request['touch']) {
+            $mealPlan->touch();
+
+            return back();
+        }
     }
 
     /**

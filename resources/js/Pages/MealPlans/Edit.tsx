@@ -7,8 +7,8 @@ import {useState} from "react";
 import Modal from "@/Components/Modal";
 import {classNames} from "@/Utils/classNames";
 import {MealType} from "@/enums";
-import {ArrowPathIcon, XMarkIcon} from "@heroicons/react/20/solid";
-import EditMealRecipe from "@/Pages/Profile/Partials/EditMealRecipe";
+import {XMarkIcon} from "@heroicons/react/20/solid";
+import EditMealRecipe from "@/Components/EditMealRecipe";
 
 export default function MealPlanEdit ({ auth, hasShoppingList, mealPlan }: PageProps<{ hasShoppingList:boolean, mealPlan: MealPlan }>) {
   const [selectedMeal, setSelectedMeal] = useState<Meal|undefined>(undefined);
