@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Meal extends Model
@@ -18,5 +19,10 @@ class Meal extends Model
     public function recipes(): BelongsToMany
     {
         return $this->belongsToMany(Recipe::class);
+    }
+
+    public function day(): BelongsTo
+    {
+        return  $this->belongsTo(Day::class);
     }
 }

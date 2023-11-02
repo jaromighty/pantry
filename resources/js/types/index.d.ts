@@ -1,4 +1,4 @@
-import {MealType} from "@/enums";
+import {MealType, RecipeType} from "@/enums";
 
 export interface Ingredient {
   id: number;
@@ -8,7 +8,12 @@ export interface Ingredient {
 export interface Recipe {
   id: number;
   name: string;
+  type: RecipeType;
   ingredients: Ingredient[];
+  pivot: {
+    meal_id: number;
+    recipe_id: number;
+  }
 }
 
 export interface Meal {

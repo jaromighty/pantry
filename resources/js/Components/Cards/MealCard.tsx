@@ -3,10 +3,6 @@ import {MealType} from "@/enums";
 import {Meal} from "@/types";
 
 export default function MealCard({ meal, onClick }: { meal: Meal, onClick: () => void }) {
-  const openMeal = (mealId: number) => {
-
-  }
-
   return (
     <li>
       <button onClick={onClick} className={classNames(
@@ -16,15 +12,17 @@ export default function MealCard({ meal, onClick }: { meal: Meal, onClick: () =>
         meal.type === MealType.DINNER ? 'bg-pink-50 hover:bg-pink-100' : '',
         meal.type === MealType.DESSERT ? 'bg-red-50 hover:bg-red-100' : ''
       )}>
-        <p className={classNames(
-          'order-1 font-semibold text-blue-700',
-          meal.type === MealType.BREAKFAST ? 'text-orange-700' : '',
-          meal.type === MealType.LUNCH ? 'text-blue-700' : '',
-          meal.type === MealType.DINNER ? 'text-pink-700' : '',
-          meal.type === MealType.DESSERT ? 'text-red-700' : ''
-        )}>
-          {meal.recipes[0].name}
-        </p>
+        {meal.recipes.map((recipe) => (
+          <p key={meal.id} className={classNames(
+            'order-1 font-semibold text-blue-700',
+            meal.type === MealType.BREAKFAST ? 'text-orange-700' : '',
+            meal.type === MealType.LUNCH ? 'text-blue-700' : '',
+            meal.type === MealType.DINNER ? 'text-pink-700' : '',
+            meal.type === MealType.DESSERT ? 'text-red-700' : ''
+          )}>
+            {recipe.name}
+          </p>
+        ))}
         <p className={classNames(
           meal.type === MealType.BREAKFAST ? 'text-orange-500 group-hover:text-orange-700' : '',
           meal.type === MealType.LUNCH ? 'text-blue-500 group-hover:text-blue-700' : '',

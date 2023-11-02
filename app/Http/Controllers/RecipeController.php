@@ -88,4 +88,11 @@ class RecipeController extends Controller
     {
         //
     }
+
+    public function switch(Request $request)
+    {
+        $recipe = Recipe::where('type', $request['type'])->inRandomOrder()->first();
+
+        return back()->with(['recipe' => $recipe]);
+    }
 }

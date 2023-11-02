@@ -4,20 +4,31 @@ import Authenticated from "@/Layouts/AuthenticatedLayout";
 import dayjs from "dayjs";
 import MealCard from "@/Components/Cards/MealCard";
 import {useState} from "react";
+import Modal from "@/Components/Modal";
+import {classNames} from "@/Utils/classNames";
+import {MealType} from "@/enums";
+import {ArrowPathIcon, XMarkIcon} from "@heroicons/react/20/solid";
+import EditMealRecipe from "@/Pages/Profile/Partials/EditMealRecipe";
 
 export default function MealPlanEdit ({ auth, hasShoppingList, mealPlan }: PageProps<{ hasShoppingList:boolean, mealPlan: MealPlan }>) {
   const [selectedMeal, setSelectedMeal] = useState<Meal|undefined>(undefined);
+  const [updateSelectedMeal, setUpdateSelectedMeal] = useState<boolean>(false);
 
-  const handleMealSelect = (meal: Meal) => {
+  const handleMealSelect = (meal: Meal): void => {
     setSelectedMeal(meal);
+    setUpdateSelectedMeal(true);
   }
 
   const {post} = useForm({
     meal_plan_id: mealPlan.id,
   });
 
-  const submit = () => {
+  const submit = (): void => {
     post(route('shopping-lists.generate'));
+  }
+
+  const closeModal = (): void => {
+    setUpdateSelectedMeal(false);
   }
 
   return <>
@@ -84,6 +95,54 @@ export default function MealPlanEdit ({ auth, hasShoppingList, mealPlan }: PageP
           </div>
         </div>
       </div>
+
+      <Modal maxWidth="lg" show={updateSelectedMeal} onClose={closeModal}>
+        <div className="absolute right-0 top-0 hidden pr-4 pt-4 sm:block">
+          <button
+            type="button"
+            className={classNames(
+              'rounded-md focus:outline-none focus:ring-2 ',
+              selectedMeal?.type === MealType.BREAKFAST ? 'text-orange-400 hover:text-orange-500 focus:ring-orange-500' : '',
+              selectedMeal?.type === MealType.LUNCH ? 'text-blue-400 hover:text-blue-500 focus:ring-blue-500' : '',
+              selectedMeal?.type === MealType.DINNER ? 'text-pink-400 hover:text-pink-500 focus:ring-pink-500' : '',
+              selectedMeal?.type === MealType.DESSERT ? 'text-red-400 hover:text-red-500 focus:ring-red-500' : ''
+            )}
+            onClick={closeModal}
+          >
+            <span className="sr-only">Close</span>
+            <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+          </button>
+        </div>
+        <div className={classNames(
+          'p-6',
+          selectedMeal?.type === MealType.BREAKFAST ? 'bg-orange-50' : '',
+          selectedMeal?.type === MealType.LUNCH ? 'bg-blue-50' : '',
+          selectedMeal?.type === MealType.DINNER ? 'bg-pink-50' : '',
+          selectedMeal?.type === MealType.DESSERT ? 'bg-red-50' : ''
+        )}>
+          <h4 className={classNames(
+            'text-lg',
+            selectedMeal?.type === MealType.BREAKFAST ? 'text-orange-700' : '',
+            selectedMeal?.type === MealType.LUNCH ? 'text-blue-700' : '',
+            selectedMeal?.type === MealType.DINNER ? 'text-pink-700' : '',
+            selectedMeal?.type === MealType.DESSERT ? 'text-red-700' : ''
+          )}>
+            <span className="font-semibold">{selectedMeal !== undefined && selectedMeal?.type.charAt(0).toUpperCase() + selectedMeal?.type.slice(1)}</span>{' - '}
+            <span>{dayjs(selectedMeal?.day.date).format('ddd D')}</span>
+          </h4>
+          <div className={classNames(
+            'mt-6 text-sm',
+            selectedMeal?.type === MealType.BREAKFAST ? 'text-orange-600' : '',
+            selectedMeal?.type === MealType.LUNCH ? 'text-blue-600' : '',
+            selectedMeal?.type === MealType.DINNER ? 'text-pink-600' : '',
+            selectedMeal?.type === MealType.DESSERT ? 'text-red-600' : ''
+          )}>
+            {selectedMeal?.recipes.map((recipe) => (
+              <EditMealRecipe mealPlanId={mealPlan.id} recipe={recipe} onClose={closeModal}/>
+            ))}
+          </div>
+        </div>
+      </Modal>
     </Authenticated>
   </>;
 }

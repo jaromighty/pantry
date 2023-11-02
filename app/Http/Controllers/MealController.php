@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Meal;
+use App\Models\Recipe;
 use Illuminate\Http\Request;
 
 class MealController extends Controller
@@ -52,7 +53,12 @@ class MealController extends Controller
      */
     public function update(Request $request, Meal $meal)
     {
-        //
+        if ($request->has(['old_recipe_id', 'new_recipe_id'])) {
+            $meal->recipes()->detach($request['old_recipe_id']);
+            $meal->recipes()->save(Recipe::whereId($request['new_recipe_id'])->first());
+        }
+
+        return back();
     }
 
     /**

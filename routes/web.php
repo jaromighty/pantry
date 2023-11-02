@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('recipes', RecipeController::class);
+    Route::post('recipes/switch', [RecipeController::class, 'switch'])->name('recipes.switch');
     Route::resource('ingredients', IngredientController::class);
     Route::resource('meals', MealController::class);
     Route::resource('days', DayController::class);
