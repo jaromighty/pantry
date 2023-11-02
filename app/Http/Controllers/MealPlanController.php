@@ -77,6 +77,7 @@ class MealPlanController extends Controller
         return inertia('MealPlans/Edit', [
             'mealPlan' => $mealPlan->load(['days.meals.recipes', 'days.meals.day', 'shoppingList']),
             'hasShoppingList' => !empty($mealPlan->shoppingList),
+            'needsNewShoppingList' => $mealPlan->shoppingList?->updated_at < $mealPlan->updated_at,
             'recipe' => Inertia::lazy(fn () => Recipe::where('type', $request['type'])->inRandomOrder()->first()),
         ]);
     }

@@ -24,6 +24,15 @@ class ShoppingListController extends Controller
         return redirect()->route('shopping-lists.show', [$list]);
     }
 
+    public function regenerate(Request $request)
+    {
+        ShoppingList::whereId($request['shopping_list_id'])->delete();
+
+        $list = $this->shoppingListService->generate($request['meal_plan_id']);
+
+        return redirect()->route('shopping-lists.show', [$list]);
+    }
+
     public function show(ShoppingList $shoppingList): Response
     {
         return inertia('ShoppingLists/Show', [

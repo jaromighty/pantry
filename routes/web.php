@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('days', DayController::class);
     Route::resource('meal-plans', MealPlanController::class);
     Route::post('shopping-lists/generate', [ShoppingListController::class, 'generate'])->name('shopping-lists.generate');
+    Route::put('shopping-lists/regenerate', [ShoppingListController::class, 'regenerate'])->name('shopping-lists.regenerate');
     Route::get('shopping-lists/{shoppingList}', [ShoppingListController::class, 'show'])->name('shopping-lists.show');
     Route::put('shopping-lists/{shoppingList}/update-ingredient', [ShoppingListController::class, 'updateShoppingListIngredient'])->name('shopping-lists.update-ingredient');
 });
