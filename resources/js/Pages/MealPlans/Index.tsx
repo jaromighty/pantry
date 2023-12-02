@@ -18,8 +18,8 @@ export default function MealPlanIndex ({ auth, mealPlans }: PageProps<{ mealPlan
             </h3>
           </div>
           <div className="ml-4 mt-2 flex-shrink-0">
-            <PrimaryLinkButton href={route('meal-plans.create')}>
-              Create new meal plan
+            <PrimaryLinkButton href={route('meal-plans.generate')}>
+              Generate new meal plan
             </PrimaryLinkButton>
           </div>
         </div>

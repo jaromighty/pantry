@@ -8,7 +8,6 @@ use App\Jobs\StoreMealPlan;
 use App\Models\MealPlan;
 use App\Models\Recipe;
 use App\Services\MealPlanService;
-use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -36,14 +35,20 @@ class MealPlanController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): Response|RedirectResponse
+    public function create()
+    {
+        //
+    }
+
+    public function generate(): Response|RedirectResponse
     {
         try {
             $plan = $this->mealPlanService->generate();
+
             return inertia('MealPlans/Create', [
                 'plan' => $plan->toJson(),
             ]);
-        } catch (RecipeCountLowException $exception)  {
+        } catch (RecipeCountLowException $exception) {
             return back()->withErrors(['message' => $exception->getMessage()])->withInput();
         }
     }
@@ -55,6 +60,7 @@ class MealPlanController extends Controller
     {
         try {
             StoreMealPlan::dispatch($request->all());
+
             return redirect()->route('meal-plans.index');
         } catch (MealPlanAlreadyExistsException $exception) {
             return back()->withErrors(['message' => $exception->getMessage()]);
@@ -76,7 +82,7 @@ class MealPlanController extends Controller
     {
         return inertia('MealPlans/Edit', [
             'mealPlan' => $mealPlan->load(['days.meals.recipes', 'days.meals.day', 'shoppingList']),
-            'hasShoppingList' => !empty($mealPlan->shoppingList),
+            'hasShoppingList' => ! empty($mealPlan->shoppingList),
             'needsNewShoppingList' => $mealPlan->shoppingList?->updated_at < $mealPlan->updated_at,
             'recipe' => Inertia::lazy(fn () => Recipe::where('type', $request['type'])->inRandomOrder()->first()),
         ]);
