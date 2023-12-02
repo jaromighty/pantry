@@ -5,7 +5,6 @@ namespace Feature\Models;
 use App\Enums\MealType;
 use App\Enums\RecipeType;
 use App\Models\Day;
-use App\Models\Meal;
 use App\Models\MealPlan;
 use App\Models\Recipe;
 use App\Models\User;

@@ -31,7 +31,7 @@ class MealPlanService
         $dinnerRecipes = collect(Recipe::where('type', RecipeType::DINNER->value)->orderByRaw('RAND()')->take(6)->get());
         $dessertRecipe = collect(Recipe::where('type', RecipeType::DESSERT->value)->orderByRaw('RAND()')->take(1)->get());
 
-        for ($i = 0;$i < 7;$i++) {
+        for ($i = 0; $i < 7; $i++) {
             $day = collect([
                 'date' => Carbon::parse($mealPlan['start_date'])->addDays($i),
                 'meals' => collect(),

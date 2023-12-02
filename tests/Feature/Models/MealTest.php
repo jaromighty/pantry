@@ -2,11 +2,9 @@
 
 namespace Feature\Models;
 
-use App\Enums\MealType;
 use App\Models\Meal;
 use App\Models\Recipe;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

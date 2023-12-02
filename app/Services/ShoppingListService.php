@@ -34,7 +34,7 @@ class ShoppingListService
             foreach ($day->meals as $meal) {
                 foreach ($meal->recipes as $recipe) {
                     foreach ($recipe->ingredients as $ingredient) {
-                        if (!in_array($ingredient->id, array_column($ingredients, 'id'))) {
+                        if (! in_array($ingredient->id, array_column($ingredients, 'id'))) {
                             $ingredients[] = [
                                 'id' => $ingredient->id,
                                 'quantity' => 1,

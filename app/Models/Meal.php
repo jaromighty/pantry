@@ -23,6 +23,6 @@ class Meal extends Model
 
     public function day(): BelongsTo
     {
-        return  $this->belongsTo(Day::class);
+        return $this->belongsTo(Day::class);
     }
 }

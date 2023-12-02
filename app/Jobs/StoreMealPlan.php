@@ -9,7 +9,6 @@ use App\Models\MealPlan;
 use App\Models\Recipe;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Http\Request;
@@ -30,6 +29,7 @@ class StoreMealPlan implements ShouldQueue
 
     /**
      * Execute the job.
+     *
      * @throws MealPlanAlreadyExistsException
      */
     public function handle(Request $generatedMealPlan): void

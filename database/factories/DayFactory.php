@@ -20,7 +20,7 @@ class DayFactory extends Factory
     public function definition(): array
     {
         return [
-            'date' => Carbon::now()->addDays(rand(1,8)),
+            'date' => Carbon::now()->addDays(rand(1, 8)),
             'meal_plan_id' => MealPlan::factory()->create()->id,
         ];
     }

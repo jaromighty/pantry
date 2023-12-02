@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Enums\MealType;
 use App\Models\Meal;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

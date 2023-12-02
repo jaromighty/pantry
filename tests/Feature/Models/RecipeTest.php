@@ -33,10 +33,10 @@ class RecipeTest extends TestCase
             'name' => 'Tater Tot Casserole',
             'ingredients' => [
                 ['id' => 1, 'name' => 'potatoes'],
-                ['id' => 2, 'name' => 'cheese']
+                ['id' => 2, 'name' => 'cheese'],
             ],
             'type' => [
-                'value' =>  RecipeType::DINNER->value
+                'value' => RecipeType::DINNER->value,
             ],
         ]);
 

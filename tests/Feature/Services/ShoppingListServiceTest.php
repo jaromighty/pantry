@@ -19,6 +19,7 @@ class ShoppingListServiceTest extends TestCase
     use RefreshDatabase;
 
     private ShoppingListService $shoppingListService;
+
     private MealPlan $mealPlan;
 
     public function setUp(): void
@@ -42,7 +43,7 @@ class ShoppingListServiceTest extends TestCase
 
     public function test_a_list_of_ingredients_can_be_created(): void
     {
-        foreach (range(0,6) as $numDays) {
+        foreach (range(0, 6) as $numDays) {
             $day = Day::factory()->create([
                 'date' => Carbon::now()->addDays($numDays),
                 'meal_plan_id' => $this->mealPlan->id,

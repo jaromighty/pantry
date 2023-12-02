@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => env('APP_USER_NAME'),
             'email' => env('APP_USER_EMAIL'),
-            'password'  => Hash::make('password'),
+            'password' => Hash::make('password'),
         ]);
 
         // BREAKFAST
@@ -50,10 +50,10 @@ class DatabaseSeeder extends Seeder
             'type' => RecipeType::BREAKFAST->value,
         ]);
         foreach ([
-            ['name'  => 'Eggs'],
-            ['name'  => 'Bread'],
-            ['name'  => 'Butter'],
-            ['name'  => 'Fruit jam'],
+            ['name' => 'Eggs'],
+            ['name' => 'Bread'],
+            ['name' => 'Butter'],
+            ['name' => 'Fruit jam'],
         ] as $ingredient) {
             $recipeB->ingredients()->firstOrCreate($ingredient);
         }

@@ -4,7 +4,6 @@ namespace Tests\Feature\Services;
 
 use App\Enums\RecipeType;
 use App\Exceptions\RecipeCountLowException;
-use App\Models\Ingredient;
 use App\Models\Recipe;
 use App\Services\MealPlanService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
