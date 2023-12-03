@@ -53,6 +53,16 @@ class MealPlanController extends Controller
         }
     }
 
+    public function selectRecipes(): Response
+    {
+        return inertia('MealPlans/SelectRecipes');
+    }
+
+    public function generateWithRecipes()
+    {
+        //
+    }
+
     /**
      * Store a newly created resource in storage.
      */

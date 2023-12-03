@@ -1,9 +1,13 @@
 import {Head, Link} from "@inertiajs/react";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import {PageProps} from "@/types";
-import PrimaryLinkButton from "@/Components/PrimaryLinkButton";
 import dayjs from "dayjs";
 import {ChevronRightIcon} from "@heroicons/react/20/solid";
+import PrimaryLinkButtonWithDropdown from "@/Components/PrimaryLinkButtonWithDropdown";
+
+const options = [
+  { label: 'Generate with recipes', href: route('meal-plan.select-recipes'), },
+]
 
 export default function MealPlanIndex ({ auth, mealPlans }: PageProps<{ mealPlans: any[] }>) {
   return <>
@@ -18,9 +22,9 @@ export default function MealPlanIndex ({ auth, mealPlans }: PageProps<{ mealPlan
             </h3>
           </div>
           <div className="ml-4 mt-2 flex-shrink-0">
-            <PrimaryLinkButton href={route('meal-plans.generate')}>
+            <PrimaryLinkButtonWithDropdown href={route('meal-plans.generate')} items={options}>
               Generate new meal plan
-            </PrimaryLinkButton>
+            </PrimaryLinkButtonWithDropdown>
           </div>
         </div>
 
