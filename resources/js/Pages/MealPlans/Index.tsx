@@ -6,7 +6,7 @@ import {ChevronRightIcon} from "@heroicons/react/20/solid";
 import PrimaryLinkButtonWithDropdown from "@/Components/PrimaryLinkButtonWithDropdown";
 
 const options = [
-  { label: 'Generate with recipes', href: route('meal-plan.select-recipes'), },
+  { label: 'Generate with recipes', href: route('meal-plans.select-recipes'), },
 ]
 
 export default function MealPlanIndex ({ auth, mealPlans }: PageProps<{ mealPlans: any[] }>) {

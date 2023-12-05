@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('ingredients', IngredientController::class);
     Route::resource('meals', MealController::class);
     Route::get('meal-plans/generate', [MealPlanController::class, 'generate'])->name('meal-plans.generate');
-    Route::get('meal-plans/select-recipes', [MealPlanController::class, 'selectRecipes'])->name('meal-plan.select-recipes');
+    Route::get('meal-plans/select-recipes', [MealPlanController::class, 'selectRecipes'])->name('meal-plans.select-recipes');
     Route::resource('meal-plans', MealPlanController::class);
     Route::post('shopping-lists/generate', [ShoppingListController::class, 'generate'])->name('shopping-lists.generate');
     Route::put('shopping-lists/regenerate', [ShoppingListController::class, 'regenerate'])->name('shopping-lists.regenerate');

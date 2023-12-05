@@ -53,9 +53,11 @@ class MealPlanController extends Controller
         }
     }
 
-    public function selectRecipes(): Response
+    public function selectRecipes(Request $request): Response
     {
-        return inertia('MealPlans/SelectRecipes');
+        return inertia('MealPlans/SelectRecipes', [
+            'recipes' => Inertia::lazy(fn () => Recipe::where('name', 'LIKE', '%'.$request['search'].'%')->get())
+        ]);
     }
 
     public function generateWithRecipes()

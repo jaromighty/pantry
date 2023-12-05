@@ -1,9 +1,9 @@
+import {useState} from "react";
 import {Day, Meal, MealPlan, PageProps} from "@/types";
 import {Head, Link, router, useForm} from "@inertiajs/react";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import dayjs from "dayjs";
 import MealCard from "@/Components/Cards/MealCard";
-import {useState} from "react";
 import Modal from "@/Components/Modal";
 import {classNames} from "@/Utils/classNames";
 import {MealType} from "@/enums";
