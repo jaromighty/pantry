@@ -1,43 +1,50 @@
 import {Head} from "@inertiajs/react";
 import {PageProps, Recipe} from "@/types";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
-import PrimaryLinkButton from "@/Components/PrimaryLinkButton";
+import {Button} from "@/Components/button";
 
 export default function RecipeShow ({ auth, recipe }: PageProps<{ recipe: Recipe }>) {
   return <>
     <Head title={recipe.name}/>
 
     <Authenticated user={auth.user}>
-      <div className="py-4 max-w-7xl mx-auto px-4 sm:px-6 sm:py-8 lg:px-0">
-        <div className="overflow-hidden rounded-lg bg-white shadow">
-          <div className="border-b border-gray-200 p-4 sm:px-6 sm:py-5">
-            <div className="-ml-4 -mt-2 flex flex-wrap items-center justify-between sm:flex-nowrap">
-              <div className="ml-4 mt-2">
-                <h3 className="text-base font-semibold leading-6 text-gray-900">
-                  {recipe.name}
-                </h3>
+      <div className="py-4 max-w-7xl mx-auto sm:px-6 sm:py-8 lg:px-0">
+        <div className="overflow-hidden bg-white shadow sm:max-w-5xl sm:mx-auto sm:rounded-2xl">
+          <div className="px-4 py-5 sm:p-8">
+            <div className="flex">
+              <div className="mr-6 flex-shrink-0">
+                <img
+                  className="inline-block size-32 rounded-xl"
+                  src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?auto=format&fit=crop&q=80&w=1547&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt=""
+                />
               </div>
-              <div className="ml-4 mt-2 flex-shrink-0">
-                <PrimaryLinkButton href={route('recipes.edit', [recipe])}>
-                  Edit recipe
-                </PrimaryLinkButton>
+              <div className="w-full sm:flex sm:justify-between">
+                <h4 className="text-3xl font-bold sm:flex-1">{recipe.name}</h4>
+                <div className="mt-3 sm:ml-4 sm:mt-0">
+                  <Button color="indigo" href={route('recipes.edit', [recipe])}>
+                    Edit Recipe
+                  </Button>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="px-4 py-5 sm:p-6">
-            <div className="mx-auto max-w-2xl lg:mx-0 lg:grid lg:max-w-none lg:grid-cols-2 lg:gap-x-16 lg:gap-y-6 xl:grid-cols-1 xl:grid-rows-1 xl:gap-x-8">
-              <div className="mt-6 max-w-xl lg:mt-0 xl:col-end-1 xl:row-start-1">
-                <p className="text-lg leading-8 text-gray-600">
-                  Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet
-                  fugiat veniam occaecat fugiat aliqua. Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
-                  lorem cupidatat commodo.
-                </p>
+
+            <div className="mt-8 sm:grid sm:grid-cols-3 sm:gap-6">
+              <div className="sm:col-span-1">
+                <h4 className="font-semibold text-2xl">
+                  Ingredients
+                </h4>
+                <ul className="mt-2 divide-y divide-gray-200">
+                  {recipe.ingredients.map((ingredient) => (
+                    <li className="py-2">{ingredient.name}</li>
+                  ))}
+                </ul>
               </div>
-              <img
-                src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?auto=format&fit=crop&q=80&w=1547&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                alt=""
-                className="mt-10 aspect-[6/5] w-full max-w-lg rounded-2xl object-cover lg:mt-0 lg:max-w-none xl:row-span-2 xl:row-end-2"
-              />
+              <div className="mt-6 sm:col-span-2 sm:mt-0">
+                <h4 className="font-semibold text-2xl">
+                  Directions
+                </h4>
+              </div>
             </div>
           </div>
         </div>
