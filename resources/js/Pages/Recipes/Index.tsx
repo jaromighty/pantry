@@ -82,14 +82,14 @@ export default function RecipesIndex ({ auth, recipes }: PageProps<{ recipes: Re
               </Button>
             </form>
           ) : (
-            <>
+            <div className="space-x-3">
               <Button outline href={route('recipes.create')}>
                 Manual entry
               </Button>
               <Button outline onClick={() => setConfirmUrl(true)}>
                 Import from URL
               </Button>
-            </>
+            </div>
           )}
         </DialogBody>
       </Dialog>
