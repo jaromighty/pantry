@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Recipe;
 use Illuminate\Http\Request;
+use Inertia\Response;
 
 class RecipeController extends Controller
 {
@@ -23,6 +24,13 @@ class RecipeController extends Controller
     public function create()
     {
         return inertia('Recipes/Create');
+    }
+
+    public function import(Request $request): Response
+    {
+        return inertia('Recipes/Import', [
+            'url' => $request['url'],
+        ]);
     }
 
     /**

@@ -11,7 +11,7 @@ export default function RecipesIndex ({ auth, recipes }: PageProps<{ recipes: Re
   const [open, setOpen] = useState(false)
   const [confirmUrl, setConfirmUrl] = useState(false)
 
-  const {data, setData} = useForm({
+  const {data, setData, get} = useForm({
     url: ''
   })
 
@@ -20,6 +20,12 @@ export default function RecipesIndex ({ auth, recipes }: PageProps<{ recipes: Re
     setTimeout(() => {
       setConfirmUrl(false)
     }, 1000)
+  }
+
+  const submit = (e) => {
+    e.preventDefault()
+
+    get(route('recipes.import'))
   }
 
   return (
@@ -63,7 +69,7 @@ export default function RecipesIndex ({ auth, recipes }: PageProps<{ recipes: Re
         </DialogTitle>
         <DialogBody>
           {confirmUrl ? (
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={submit}>
               <Fieldset>
                 <Field>
                   <Label>
@@ -77,7 +83,7 @@ export default function RecipesIndex ({ auth, recipes }: PageProps<{ recipes: Re
                   />
                 </Field>
               </Fieldset>
-              <Button color="indigo">
+              <Button color="indigo" type="submit">
                 Get Recipe
               </Button>
             </form>
