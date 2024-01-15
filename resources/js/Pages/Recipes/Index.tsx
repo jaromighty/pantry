@@ -1,13 +1,31 @@
 import {PageProps, Recipe} from "@/types";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
-import {Head, Link} from "@inertiajs/react";
-import PrimaryLinkButton from "@/Components/PrimaryLinkButton";
+import {Head, Link, useForm} from "@inertiajs/react";
+import {Button} from "@/Components/button";
+import {Dialog, DialogBody, DialogTitle} from "@/Components/dialog";
+import {useState} from "react";
+import {Field, Fieldset, Label} from "@/Components/fieldset";
+import {Input} from "@/Components/input";
 
 export default function RecipesIndex ({ auth, recipes }: PageProps<{ recipes: Recipe[] }>) {
-  return <>
-    <Head title="Recipes"/>
+  const [open, setOpen] = useState(false)
+  const [confirmUrl, setConfirmUrl] = useState(false)
 
+  const {data, setData} = useForm({
+    url: ''
+  })
+
+  const onClose = () => {
+    setOpen(false)
+    setTimeout(() => {
+      setConfirmUrl(false)
+    }, 1000)
+  }
+
+  return (
     <Authenticated user={auth.user}>
+      <Head title="Recipes"/>
+
       <div className="py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-0">
         <div className="-ml-4 -mt-2 flex flex-wrap items-center justify-between sm:flex-nowrap">
           <div className="ml-4 mt-2">
@@ -16,9 +34,9 @@ export default function RecipesIndex ({ auth, recipes }: PageProps<{ recipes: Re
             </h3>
           </div>
           <div className="ml-4 mt-2 flex-shrink-0">
-            <PrimaryLinkButton href={route('recipes.create')}>
+            <Button color="indigo" onClick={() => setOpen(true)}>
               Create new recipe
-            </PrimaryLinkButton>
+            </Button>
           </div>
         </div>
 
@@ -33,12 +51,48 @@ export default function RecipesIndex ({ auth, recipes }: PageProps<{ recipes: Re
                   </Link>
                 </div>
                 <p className="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{recipe.name}</p>
-                {/*<p className="pointer-events-none block text-sm font-medium text-gray-500">{file.size}</p>*/}
               </li>
             ))}
           </ul>
         </div>
       </div>
+
+      <Dialog open={open} onClose={onClose}>
+        <DialogTitle>
+          Select Method
+        </DialogTitle>
+        <DialogBody>
+          {confirmUrl ? (
+            <form className="space-y-4">
+              <Fieldset>
+                <Field>
+                  <Label>
+                    Recipe URL
+                  </Label>
+                  <Input
+                    value={data.url}
+                    onChange={(e) => {
+                      setData('url', e.target.value)
+                    }}
+                  />
+                </Field>
+              </Fieldset>
+              <Button color="indigo">
+                Get Recipe
+              </Button>
+            </form>
+          ) : (
+            <>
+              <Button outline href={route('recipes.create')}>
+                Manual entry
+              </Button>
+              <Button outline onClick={() => setConfirmUrl(true)}>
+                Import from URL
+              </Button>
+            </>
+          )}
+        </DialogBody>
+      </Dialog>
     </Authenticated>
-  </>;
+  )
 }
