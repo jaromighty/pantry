@@ -5,6 +5,7 @@ import {Fragment, useState} from "react";
 import {Listbox, Transition} from "@headlessui/react";
 import {CheckIcon, ChevronUpDownIcon} from "@heroicons/react/24/solid";
 import {classNames} from "@/Utils/classNames";
+import {Button} from "@/Components/button";
 
 interface RecipeType {
   id: number
@@ -63,7 +64,7 @@ export default function RecipeEdit ({ auth, recipe }: PageProps<{ recipe: Recipe
           <div className="space-y-12">
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
               <div>
-                <h2 className="text-base font-semibold leading-7 text-gray-900">Edit recipe</h2>
+                <h2 className="text-base font-semibold leading-7 text-gray-900">Edit recipe details</h2>
                 <p className="mt-1 text-sm leading-6 text-gray-600">This is going to be great.</p>
               </div>
 
@@ -185,18 +186,43 @@ export default function RecipeEdit ({ auth, recipe }: PageProps<{ recipe: Recipe
                 </div>
               </div>
             </div>
+
+            <div className="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
+              <div>
+                <h2 className="text-base font-semibold leading-7 text-gray-900">Edit recipe image</h2>
+                <p className="mt-1 text-sm leading-6 text-gray-600">What a great piece of eye candy.</p>
+              </div>
+
+              <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
+                <div className="col-span-full flex items-center gap-x-8">
+                  <img
+                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                    alt=""
+                    className="size-64 flex-none rounded-lg bg-gray-800 object-cover"
+                  />
+                  <div>
+                    <Button
+                      color="indigo"
+                    >
+                      Change avatar
+                    </Button>
+                    <p className="mt-2 text-xs leading-5 text-gray-500">JPG, GIF or PNG. 1MB max.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="mt-6 flex items-center justify-end gap-x-6">
-            <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
+            <Button plain>
               Cancel
-            </button>
-            <button
+            </Button>
+            <Button
+              color="indigo"
               type="submit"
-              className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Save
-            </button>
+            </Button>
           </div>
         </form>
       </div>
