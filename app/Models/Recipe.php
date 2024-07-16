@@ -13,6 +13,7 @@ class Recipe extends Model
     protected $fillable = [
         'name',
         'type',
+        'image_path',
     ];
 
     public function ingredients(): BelongsToMany
