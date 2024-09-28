@@ -15,7 +15,7 @@ return new class extends Migration
             $table->after('recipe_id', function ($table) {
                 $table->string('full_text');
                 $table->unsignedBigInteger('unit_id');
-                $table->unsignedFloat('quantity', 4);
+                $table->unsignedFloat('quantity', 4)->nullable();
                 $table->string('notes');
                 });
         });
