@@ -51,7 +51,7 @@ export default function RecipesIndex ({ auth, recipes }: PageProps<{ recipes: Re
             {recipes.map((recipe) => (
               <li key={recipe.id} className="relative">
                 <div className="group aspect-h-7 aspect-w-10 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
-                  <img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?auto=format&fit=crop&q=80&w=1547&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" className="pointer-events-none object-cover group-hover:opacity-75" />
+                  <img src={recipe.image_url} alt="" className="pointer-events-none object-cover group-hover:opacity-75" />
                   <Link href={route('recipes.show', [recipe])} className="absolute inset-0 focus:outline-none">
                     <span className="sr-only">View details for {recipe.name}</span>
                   </Link>
