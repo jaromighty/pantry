@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('ingredient_recipe', function (Blueprint $table) {
             $table->unsignedBigInteger('unit_id')->after('recipe_id');
-            $table->unsignedBigInteger('quantity')->after('unit_id');
+            $table->unsignedFloat('quantity', 4)->after('unit_id');
             $table->string('notes')->after('quantity');
         });
     }
