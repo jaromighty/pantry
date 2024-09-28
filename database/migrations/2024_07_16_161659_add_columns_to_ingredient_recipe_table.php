@@ -16,7 +16,7 @@ return new class extends Migration
                 $table->string('full_text');
                 $table->unsignedBigInteger('unit_id');
                 $table->unsignedFloat('quantity', 4)->nullable();
-                $table->string('notes');
+                $table->string('notes')->nullable();
                 });
         });
     }
