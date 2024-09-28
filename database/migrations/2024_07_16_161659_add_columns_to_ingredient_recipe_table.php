@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('ingredient_recipe', function (Blueprint $table) {
-            $table->after('recipe_id', function ($table) {
+            $table->after('recipe_id', function (Blueprint $table) {
                 $table->string('full_text');
                 $table->unsignedBigInteger('unit_id');
                 $table->unsignedFloat('quantity', 4)->nullable();
@@ -27,6 +27,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('ingredient_recipe', function (Blueprint $table) {
+            $table->dropColumn('full_text');
             $table->dropColumn('unit_id');
             $table->dropColumn('quantity');
             $table->dropColumn('notes');
