@@ -12,9 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('ingredient_recipe', function (Blueprint $table) {
-            $table->unsignedBigInteger('unit_id')->after('recipe_id');
-            $table->unsignedFloat('quantity', 4)->after('unit_id');
-            $table->string('notes')->after('quantity');
+            $table->after('recipe_id', function ($table) {
+                $table->string('full_text');
+                $table->unsignedBigInteger('unit_id');
+                $table->unsignedFloat('quantity', 4);
+                $table->string('notes');
+                });
         });
     }
 
