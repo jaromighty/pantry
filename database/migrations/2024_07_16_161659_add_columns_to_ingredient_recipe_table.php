@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('ingredient_recipe', function (Blueprint $table) {
             $table->after('recipe_id', function (Blueprint $table) {
                 $table->string('full_text');
-                $table->unsignedBigInteger('unit_id');
+                $table->unsignedBigInteger('unit_id')->nullable();
                 $table->unsignedFloat('quantity', 4)->nullable();
                 $table->string('notes')->nullable();
                 });
