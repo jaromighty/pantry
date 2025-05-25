@@ -5,6 +5,7 @@ use App\Http\Controllers\MealController;
 use App\Http\Controllers\MealPlanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\ShoppingListController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -41,6 +42,8 @@ Route::middleware('auth')->group(function () {
     Route::put('shopping-lists/regenerate', [ShoppingListController::class, 'regenerate'])->name('shopping-lists.regenerate');
     Route::get('shopping-lists/{shoppingList}', [ShoppingListController::class, 'show'])->name('shopping-lists.show');
     Route::put('shopping-lists/{shoppingList}/update-ingredient', [ShoppingListController::class, 'updateShoppingListIngredient'])->name('shopping-lists.update-ingredient');
+
+    Route::get('settings', [SettingsController::class, 'edit'])->name('settings.edit');
 });
 
 require __DIR__.'/auth.php';

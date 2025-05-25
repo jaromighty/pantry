@@ -3,12 +3,16 @@ import {MealType, RecipeType} from "@/enums";
 export interface Ingredient {
   id: number;
   name: string;
+  pivot: {
+    full_text: string;
+  }
 }
 
 export interface Recipe {
   id: number;
   name: string;
   type: RecipeType;
+  image_url: string;
   ingredients: Ingredient[];
   pivot: {
     meal_id: number;

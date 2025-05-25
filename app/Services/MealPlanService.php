@@ -27,7 +27,7 @@ class MealPlanService
         ]);
 
         $breakfastRecipes = collect(Recipe::where('type', RecipeType::BREAKFAST->value)->orderByRaw('RAND()')->take(7)->get());
-        $lunchRecipes = collect(Recipe::where('type', RecipeType::LUNCH->value)->orderByRaw('RAND()')->take(7)->get());
+//        $lunchRecipes = collect(Recipe::where('type', RecipeType::LUNCH->value)->orderByRaw('RAND()')->take(7)->get());
         $dinnerRecipes = collect(Recipe::where('type', RecipeType::DINNER->value)->orderByRaw('RAND()')->take(6)->get());
         $dessertRecipe = collect(Recipe::where('type', RecipeType::DESSERT->value)->orderByRaw('RAND()')->take(1)->get());
 
@@ -40,16 +40,16 @@ class MealPlanService
                 'type' => MealType::BREAKFAST->value,
                 'recipes' => collect([$breakfastRecipes[$i]]),
             ]);
-            $mealTwo = collect([
-                'type' => MealType::LUNCH->value,
-                'recipes' => collect([$lunchRecipes[$i]]),
-            ]);
+//            $mealTwo = collect([
+//                'type' => MealType::LUNCH->value,
+//                'recipes' => collect([$lunchRecipes[$i]]),
+//            ]);
             $mealThree = collect([
                 'type' => $i < 6 ? MealType::DINNER->value : MealType::DESSERT->value,
                 'recipes' => collect($i < 6 ? [$dinnerRecipes[$i]] : $dessertRecipe),
             ]);
 
-            $day['meals']->push($mealOne, $mealTwo, $mealThree);
+            $day['meals']->push($mealOne, $mealThree);
             $mealPlan['days']->push($day);
         }
 

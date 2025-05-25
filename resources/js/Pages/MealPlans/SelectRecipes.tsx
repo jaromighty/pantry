@@ -1,5 +1,5 @@
-import {Fragment, type ReactElement, useState} from "react"
-import {Head, router} from "@inertiajs/react";
+import {Fragment, type ReactElement, useEffect, useState} from "react"
+import {Head, router, usePage} from "@inertiajs/react";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import {type PageProps, Recipe} from "@/types";
 import {PlusIcon} from "@heroicons/react/24/solid";
@@ -24,11 +24,29 @@ const mealsArray = [
 export default function SelectRecipes ({ auth, recipes }: PageProps<{ recipes?: Recipe[] }>): ReactElement {
   const [meals, setMeals] = useState<Meal[]>(mealsArray)
   const [query, setQuery] = useState<string>('')
+  const [type, setType] = useState<MealType | null>(null)
   const [open, setOpen] = useState<boolean>(false)
+  const [queriedRecipes, setQueriedRecipes] = useState<Recipe[] | undefined>(recipes)
+
+  useEffect(() => {
+    setQueriedRecipes(recipes)
+  }, [recipes])
+
+  const openSearch = (type: MealType) => {
+    setType(type)
+    setOpen(true)
+  }
+
+  const closeSearch = () => {
+    setOpen(false)
+    setTimeout(() => {
+      setQueriedRecipes([])
+    }, 100)
+  }
 
   const search = (value: string) => {
     setQuery(value)
-    router.visit(route('meal-plans.select-recipes', {search: value}), {
+    router.visit(route('meal-plans.select-recipes', {search: value, type}), {
       preserveState: true,
       only: ['recipes']
     })
@@ -70,7 +88,7 @@ export default function SelectRecipes ({ auth, recipes }: PageProps<{ recipes?: 
                 <div className="flex items-center justify-between">
                   {meal.label}
                   <button
-                    onClick={() => setOpen(true)}
+                    onClick={() => openSearch(meal.type)}
                     className={classNames(
                       'bg-transparent rounded p-1 -my-1 -mx-0.5',
                       buttonStyles[meal.type]
@@ -94,7 +112,7 @@ export default function SelectRecipes ({ auth, recipes }: PageProps<{ recipes?: 
       </div>
 
       <Transition.Root show={open} as={Fragment} afterLeave={() => setQuery('')} appear>
-        <Dialog as="div" className="relative z-10" onClose={setOpen}>
+        <Dialog as="div" className="relative z-10" onClose={closeSearch}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -118,19 +136,20 @@ export default function SelectRecipes ({ auth, recipes }: PageProps<{ recipes?: 
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel className="mx-auto max-w-xl transform rounded-xl bg-white p-2 shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
-                <Combobox onChange={(recipe) => add(recipe)}>
+                <Combobox onChange={(recipe: Recipe) => add(recipe)}>
                   <Combobox.Input
                     className="w-full rounded-md border-0 bg-gray-100 px-4 py-2.5 text-gray-900 focus:ring-0 sm:text-sm"
                     placeholder="Search..."
+                    autoFocus
                     onChange={(event) => search(event.target.value)}
                   />
 
-                  {recipes?.length > 0 && (
+                  {queriedRecipes !== undefined && queriedRecipes?.length > 0 && (
                     <Combobox.Options
                       static
                       className="-mb-2 max-h-72 scroll-py-2 overflow-y-auto py-2 text-sm text-gray-800"
                     >
-                      {recipes.map((recipe) => (
+                      {queriedRecipes.map((recipe) => (
                         <Combobox.Option
                           key={recipe.id}
                           value={recipe}
@@ -145,7 +164,7 @@ export default function SelectRecipes ({ auth, recipes }: PageProps<{ recipes?: 
                         </Combobox.Option>
                       ))}
 
-                      {query !== '' && recipes.length === 0 && (
+                      {query !== '' && queriedRecipes.length === 0 && (
                         <div className="px-4 py-14 text-center sm:px-14">
                           <p className="mt-4 text-sm text-gray-900">No recipe found using that search term.</p>
                         </div>

@@ -2,10 +2,11 @@ import {Head, useForm} from "@inertiajs/react";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import {PageProps, Recipe} from "@/types";
 import {Fragment, useState} from "react";
-import {Listbox, Transition} from "@headlessui/react";
+import {DialogTitle, Listbox, Transition} from "@headlessui/react";
 import {CheckIcon, ChevronUpDownIcon} from "@heroicons/react/24/solid";
 import {classNames} from "@/Utils/classNames";
 import {Button} from "@/Components/button";
+import {Dialog, DialogBody} from "@/Components/dialog";
 
 interface RecipeType {
   id: number
@@ -22,6 +23,7 @@ const types: RecipeType[] = [
 
 export default function RecipeEdit ({ auth, recipe }: PageProps<{ recipe: Recipe }>) {
   const [newIngredient, setNewIngredient] = useState('');
+  const [imageOpen, setImageOpen] = useState(true);
   const {data, setData, put} = useForm({
     name: recipe.name,
     type: types.find(type => type.value === recipe.type),
@@ -203,8 +205,9 @@ export default function RecipeEdit ({ auth, recipe }: PageProps<{ recipe: Recipe
                   <div>
                     <Button
                       color="indigo"
+                      onClick={() => setImageOpen(true)}
                     >
-                      Change avatar
+                      Change image
                     </Button>
                     <p className="mt-2 text-xs leading-5 text-gray-500">JPG, GIF or PNG. 1MB max.</p>
                   </div>
@@ -226,6 +229,20 @@ export default function RecipeEdit ({ auth, recipe }: PageProps<{ recipe: Recipe
           </div>
         </form>
       </div>
+
+      <Dialog open={imageOpen} onClose={setImageOpen}>
+        <DialogTitle>Add Recipe Image</DialogTitle>
+        <DialogBody>
+          <div className="flex gap-x-4">
+            <Button plain>
+              Upload an image
+            </Button>
+            <Button plain disabled>
+              Get image from link
+            </Button>
+          </div>
+        </DialogBody>
+      </Dialog>
     </Authenticated>
   </>;
 }

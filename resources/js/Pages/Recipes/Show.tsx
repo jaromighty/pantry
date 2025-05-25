@@ -36,7 +36,7 @@ export default function RecipeShow ({ auth, recipe }: PageProps<{ recipe: Recipe
                 </h4>
                 <ul className="mt-2 divide-y divide-gray-200">
                   {recipe.ingredients.map((ingredient) => (
-                    <li className="py-2">{ingredient.name}</li>
+                    <li className="py-2">{ingredient.pivot.full_text}</li>
                   ))}
                 </ul>
               </div>

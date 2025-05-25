@@ -54,7 +54,7 @@ class RecipeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Recipe $recipe)
+    public function show(Recipe $recipe): Response
     {
         return inertia('Recipes/Show', [
             'recipe' => $recipe->load('ingredients'),
