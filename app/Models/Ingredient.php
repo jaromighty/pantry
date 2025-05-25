@@ -12,6 +12,9 @@ class Ingredient extends Model
 
     protected $fillable = [
         'name',
+        'container_type',
+        'unit',
+        'amount_per_container',
     ];
 
     public function recipes(): BelongsToMany
