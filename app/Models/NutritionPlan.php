@@ -11,5 +11,7 @@ class NutritionPlan extends Model
 
     protected $fillable = [
         'name',
+        'container_counts',
+        'nutrition_program_id',
     ];
 }
