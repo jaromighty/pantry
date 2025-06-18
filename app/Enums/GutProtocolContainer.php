@@ -43,4 +43,19 @@ enum GutProtocolContainer
             'yellow_b' => GutProtocolContainer::YELLOW_B,
         };
     }
+
+    public function label(): string
+    {
+        return match ($this) {
+            GutProtocolContainer::BLUE => 'Healthy Fats',
+            GutProtocolContainer::GRAY => 'Oils & Nut Butters',
+            GutProtocolContainer::GREEN => 'Vegetables',
+            GutProtocolContainer::ORANGE => 'Seeds & Dressings',
+            GutProtocolContainer::PURPLE => 'Fruits',
+            GutProtocolContainer::RED_A => 'Proteins A',
+            GutProtocolContainer::RED_B => 'Proteins B',
+            GutProtocolContainer::YELLOW_A => 'Carbohydrates A',
+            GutProtocolContainer::YELLOW_B => 'Carbohydrates B',
+        };
+    }
 }

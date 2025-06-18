@@ -37,4 +37,17 @@ enum FixateContainer
             'yellow' => FixateContainer::YELLOW,
         };
     }
+
+    public function label(): string
+    {
+        return match ($this) {
+            FixateContainer::BLUE => 'Healthy Fats',
+            FixateContainer::GRAY => 'Oils & Nut Butters',
+            FixateContainer::GREEN => 'Vegetables',
+            FixateContainer::ORANGE => 'Seeds & Dressings',
+            FixateContainer::PURPLE => 'Fruits',
+            FixateContainer::RED => 'Proteins',
+            FixateContainer::YELLOW => 'Carbohydrates',
+        };
+    }
 }
