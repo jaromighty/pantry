@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Enums\FixateContainer;
 use App\Enums\GutProtocolContainer;
 use App\Models\Container;
+use App\Models\NutritionPlan;
 use App\Models\NutritionProgram;
 use Illuminate\Database\Seeder;
 
@@ -60,5 +61,110 @@ class ProgramAndContainerSeeder extends Seeder
             $containerIds['Gut Protocol'][$name] = $container->id;
         }
 
+        // Fixate Nutrition Plans
+        NutritionPlan::create([
+            'name' => 'Plan A',
+            'nutrition_program_id' => $fixate->id,
+            'container_counts' => [
+                FixateContainer::GREEN->name() => 4,
+                FixateContainer::PURPLE->name() => 2,
+                FixateContainer::RED->name() => 4,
+                FixateContainer::YELLOW->name() => 2,
+                FixateContainer::BLUE->name() => 1,
+                FixateContainer::ORANGE->name() => 1,
+                FixateContainer::GRAY->name() => 3,
+            ],
+        ]);
+
+        NutritionPlan::create([
+            'name' => 'Plan B',
+            'nutrition_program_id' => $fixate->id,
+            'container_counts' => [
+                FixateContainer::GREEN->name() => 4,
+                FixateContainer::PURPLE->name() => 3,
+                FixateContainer::RED->name() => 4,
+                FixateContainer::YELLOW->name() => 3,
+                FixateContainer::BLUE->name() => 1,
+                FixateContainer::ORANGE->name() => 1,
+                FixateContainer::GRAY->name() => 4,
+            ],
+        ]);
+
+        NutritionPlan::create([
+            'name' => 'Plan E',
+            'nutrition_program_id' => $fixate->id,
+            'container_counts' => [
+                FixateContainer::GREEN->name() => 7,
+                FixateContainer::PURPLE->name() => 5,
+                FixateContainer::RED->name() => 6,
+                FixateContainer::YELLOW->name() => 5,
+                FixateContainer::BLUE->name() => 1,
+                FixateContainer::ORANGE->name() => 1,
+                FixateContainer::GRAY->name() => 7,
+            ],
+        ]);
+
+        NutritionPlan::create([
+            'name' => 'Plan E',
+            'nutrition_program_id' => $fixate->id,
+            'container_counts' => [
+                FixateContainer::GREEN->name() => 8,
+                FixateContainer::PURPLE->name() => 5,
+                FixateContainer::RED->name() => 7,
+                FixateContainer::YELLOW->name() => 5,
+                FixateContainer::BLUE->name() => 1,
+                FixateContainer::ORANGE->name() => 1,
+                FixateContainer::GRAY->name() => 8,
+            ],
+        ]);
+
+        // Gut Protocol Nutrition Plans
+        NutritionPlan::create([
+            'name' => 'Plan A',
+            'nutrition_program_id' => $gut->id,
+            'container_counts' => [
+                GutProtocolContainer::GREEN->name() => 6,
+                GutProtocolContainer::PURPLE->name() => 2,
+                GutProtocolContainer::RED_A->name() => 2,
+                GutProtocolContainer::RED_B->name() => 2,
+                GutProtocolContainer::YELLOW_A->name() => 1,
+                GutProtocolContainer::YELLOW_B->name() => 1,
+                GutProtocolContainer::BLUE->name() => 1,
+                GutProtocolContainer::ORANGE->name() => 1,
+                GutProtocolContainer::GRAY->name() => 3,
+            ],
+        ]);
+
+        NutritionPlan::create([
+            'name' => 'Plan B',
+            'nutrition_program_id' => $gut->id,
+            'container_counts' => [
+                GutProtocolContainer::GREEN->name() => 6,
+                GutProtocolContainer::PURPLE->name() => 2,
+                GutProtocolContainer::RED_A->name() => 2,
+                GutProtocolContainer::RED_B->name() => 2,
+                GutProtocolContainer::YELLOW_A->name() => 2,
+                GutProtocolContainer::YELLOW_B->name() => 1,
+                GutProtocolContainer::BLUE->name() => 1,
+                GutProtocolContainer::ORANGE->name() => 1,
+                GutProtocolContainer::GRAY->name() => 4,
+            ],
+        ]);
+
+        NutritionPlan::create([
+            'name' => 'Plan E',
+            'nutrition_program_id' => $gut->id,
+            'container_counts' => [
+                GutProtocolContainer::GREEN->name() => 9,
+                GutProtocolContainer::PURPLE->name() => 3,
+                GutProtocolContainer::RED_A->name() => 4,
+                GutProtocolContainer::RED_B->name() => 3,
+                GutProtocolContainer::YELLOW_A->name() => 2,
+                GutProtocolContainer::YELLOW_B->name() => 2,
+                GutProtocolContainer::BLUE->name() => 1,
+                GutProtocolContainer::ORANGE->name() => 1,
+                GutProtocolContainer::GRAY->name() => 7,
+            ],
+        ]);
     }
 }
